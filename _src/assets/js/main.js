@@ -37,6 +37,7 @@ function handlePrintResult() {
         listResultEl.appendChild(itemFilm);
       }
     });
+  favoriteClassLs();
 }
 
 
@@ -53,13 +54,29 @@ function handleClickFavorite(event) {
 
   if (parentElement.classList.contains('favorite')) {
     localStorage.setItem(`${idFilm}`, JSON.stringify(idFilm));
-    const favoriteLS = JSON.parse(localStorage.getItem(`${idFilm}`));
-    console.log(favoriteLS);
+    // const favoriteLS = JSON.parse(localStorage.getItem(`${idFilm}`));
+    // console.log(favoriteLS);
+  } else {
+    localStorage.removeItem(`${idFilm}`);
   }
 }
 
+function favoriteClassLs () {
+  const arrList = document.querySelectorAll('li');
+  console.log('arrayl list', arrList);
+  for (let i=0; i<arrList.length ; i++){
+    const idLi = arrList[i].id;
+    console.log(localStorage.idLi);
+    if (localStorage.idLi){
+      arrList[i].classList.add('favorite');
+    }
+  }
+}
+
+
 listResultEl.addEventListener('click', handleClickFavorite);
 buttonEl.addEventListener('click', handlePrintResult);
+
 
 
 
