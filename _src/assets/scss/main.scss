@@ -4,6 +4,18 @@ body {
 margin: 0;
 }
 
-.title__header {
-	
+.list__result{
+	list-style: none;
+	display: flex;
+
+}
+
+.item__list{
+	background-color: papayawhip;
+	margin: 10px;
+}
+
+.favorite {
+	border: 1px;
+	background-color: aquamarine;
 }
