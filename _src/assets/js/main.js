@@ -9,19 +9,15 @@ function handlePrintResult() {
     fetch(`http://api.tvmaze.com/search/shows?q=${inputEl.value}`)
         .then(response => response.json())
         .then(data => {
-
+            console.log(data);
             let imgFilm;
             let nameFilm;
             let itemFilm;
-            // let containerFilm;
 
             for (let i = 0; i < data.length; i++) {
-
-                // containerFilm = document.createElement('div');
-                // containerFilm.classList.add('container__film');
-
                 itemFilm = document.createElement('li');
                 itemFilm.classList.add('item__list');
+                itemFilm.setAttribute('id', data[i].show.id);
 
                 imgFilm = document.createElement('img');
                 if (data[i].show.image === null) {
@@ -32,28 +28,33 @@ function handlePrintResult() {
                 };
 
                 nameFilm = document.createElement('h2');
+                nameFilm.classList.add('name__film');
                 const textName = document.createTextNode(data[i].show.name);
                 nameFilm.appendChild(textName);
 
                 itemFilm.appendChild(imgFilm);
                 itemFilm.appendChild(nameFilm);
 
-                // containerFilm.appendChild(itemFilm);
-
                 listResultEl.appendChild(itemFilm);
             }
         })
 }
 
-function handleClickFavorite (event) {
+
+function handleClickFavorite(event) {
     const click = event.target;
     const parentElement = click.parentElement;
     parentElement.classList.toggle('favorite');
-    const arrFavorites = document.querySelectorAll('.favorite');
-    console.log(arrFavorites);
-    localStorage.setItem('favorites', JSON.stringify(arrFavorites));
-}
+    const idFilm = parentElement.id;   
 
-buttonEl.addEventListener('click', handlePrintResult);
+    if (parentElement.classList.contains('favorite')){
+        localStorage.setItem(`${idFilm}`, JSON.stringify(idFilm));
+        const favoriteLS = JSON.parse(localStorage.getItem(`${idFilm}`));
+        console.log (favoriteLS);
+    }
+};
 listResultEl.addEventListener('click', handleClickFavorite);
+buttonEl.addEventListener('click', handlePrintResult);
+
+
 
