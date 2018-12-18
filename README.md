@@ -1,5 +1,5 @@
 # Buscador de películas
-====================
+
 
 Con esta página podrás buscar cualquier película o serie y obtener como resultado su cartel y su titulo. 
 Si realizas una búsqueda más amplia se listará en pantalla todas las películas y series que en su título contengan la palabra buscada.
@@ -22,12 +22,12 @@ Necesitarás instalar [Node.js](https://nodejs.org/) y [Gulp](https://gulpjs.com
 
 + ## Espera, ¿esto se hace siempre?
 > ### Solo una vez al principio en cada ordenador que utilicemos:
-- Instalamos node
-- Instalamos el comando de gulp de forma global para poder usarlo desde cualquier carpeta usando `npm install --global gulp-cli`
+1. Instalamos node
+2. Instalamos el comando de gulp de forma global para poder usarlo desde cualquier carpeta usando `npm install --global gulp-cli`
 
 
 > ### Cada vez que estemos trabajando con nuestro código:
-- Desde nuestra terminal, ejecutamos el comando `gulp` para que realice la tarea por defecto, que en el caso del `gulpfile.js` que tenemos en el proyecto estará pendiente de nuestros archivos Sass, html y JavaScript y los compilará, minificará y/o recargará el servidor cada vez que hagamos un cambio
+3. Desde nuestra terminal, ejecutamos el comando `gulp` para que realice la tarea por defecto, que en el caso del `gulpfile.js` que tenemos en el proyecto estará pendiente de nuestros archivos Sass, html y JavaScript y los compilará, minificará y/o recargará el servidor cada vez que hagamos un cambio
 
 + ## Tareas de gulp incluidas
 ### Inicio de un web server para desarrollo
@@ -78,5 +78,5 @@ Podemos usar parciales de JS: en el JSON de configuración, **config.json** espe
 En principio puedes descargar todos los archivos fuera de **_src/** y sustituir los de tu proyecto. Además deberías replicar la estructura de carpetas dentro de **_src/**.
 
 ## Falta algo?
---------------------
+
 Echas de menos que el proyecto haga algo en concreto? Pidelo sin problema a través de los Issues o si te animas a mejorarlo mándanos un PR :)
