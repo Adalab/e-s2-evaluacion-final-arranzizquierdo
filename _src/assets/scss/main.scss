@@ -1,65 +1,70 @@
-*{
-	box-sizing: border-box;
-	margin: 0;
-	font-family: 'Orbitron', sans-serif;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.page__header {
+  padding: 20px;
+  border-bottom: 4px double gray;
 }
 
 .title__header {
-	text-align: center;
-	margin: 50px;
-	border-bottom: 4px double gray;
+  text-align: center;
 }
 
 .fa-search {
-	padding: 10px;
+  padding: 10px;
 }
 
 .nav__container {
-	text-align: center;
+  text-align: center;
+  margin-top: 15px;
 }
 
 .input__name {
-	border: 0;
-	border-bottom: 1px solid black;
-	box-shadow: 0;
-	margin: auto;
-	font-size: 18px;
-	padding: 8px; 
+  border: 0;
+  border-bottom: 1px solid black;
+  box-shadow: 0;
+  margin: auto;
+  font-size: 18px;
+  padding: 8px;
 }
 
 .button__search {
-	background-color: rgb(128, 0, 85);
-	color: white;
-	border: 0;
-	font-size: 18px;
-	padding: 8px;
+  background-color: rgb(128, 0, 85);
+  color: white;
+  border: 0;
+  font-size: 18px;
+  padding: 8px;
+  margin-left: 10px;
 }
 
-.list__result{
-	list-style: none;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	padding: 0;
-	margin: 20px;
+.list__result {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 0;
+  margin: 20px;
 
 }
 
-.item__list{
-	background-color: rgb(239, 196, 245);
-	margin: 10px;
-	text-align: center;
-	padding: 25px;
-	color: rgb(165, 63, 148);
-	border-radius: 10px;
+.item__list {
+  background-color: rgb(239, 196, 245);
+  margin: 10px;
+  text-align: center;
+  padding: 25px;
+  color: rgb(165, 63, 148);
+  border-radius: 10px;
 }
 
-.name__film{
-	padding: 10px;
-	font-size: 18px;
+.name__film {
+  padding: 10px;
+  font-size: 18px;
 }
 
 .favorite {
-	border: 3px double purple;
-	background-color: rgb(205, 247, 233);
-	box-shadow: 2px 2px darkslategray;
+  border: 3px double purple;
+  background-color: rgb(205, 247, 233);
+  box-shadow: 2px 2px darkslategray;
 }
