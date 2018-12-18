@@ -40,7 +40,6 @@ function handlePrintResult() {
   favoriteClassLs();
 }
 
-
 function handleClickFavorite(event) {
   const click = event.target;
   const parentElement = click.parentElement;
@@ -76,7 +75,3 @@ function favoriteClassLs () {
 
 listResultEl.addEventListener('click', handleClickFavorite);
 buttonEl.addEventListener('click', handlePrintResult);
-
-
-
-
