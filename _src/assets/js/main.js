@@ -10,6 +10,9 @@ function handlePrintResult() {
   //Texto mientras carga la página
   listResultEl.innerHTML = 'Cargando resultados...';
 
+  //Convierto la cadena LS en un array
+  let dataLS = JSON.parse(localStorage.getItem('favorites'))? JSON.parse(localStorage.getItem('favorites')) : [];
+
   fetch(`http://api.tvmaze.com/search/shows?q=${inputEl.value}`)
     .then(response => response.json())
     .then(data => {
@@ -27,22 +30,13 @@ function handlePrintResult() {
       let nameFilm;
       let itemFilm;
 
-      //Convierto la cadena en un array
-      const dataLS = JSON.parse(localStorage.getItem('favorites'));
-      console.log('dataLS', dataLS);
-
       for (let i = 0; i < data.length; i++) {
         itemFilm = document.createElement('li');
         itemFilm.classList.add('item__list');
         itemFilm.setAttribute('id', data[i].show.id);
-        if (dataLS){
-          for (let i=0 ; i<dataLS.length; i++){
-            if (data[i].show.id === dataLS[i]){
-              itemFilm.classList.add('favorite');
-            }
-          }
+        if ( dataLS.includes (data[i].show.id)){
+          itemFilm.classList.add('favorite');
         }
-        
 
         imgFilm = document.createElement('img');
         if (data[i].show.image === null) {
@@ -63,8 +57,6 @@ function handlePrintResult() {
         listResultEl.appendChild(itemFilm);
       }
     });
-    
-  // favoriteClassLs();
 }
 
 function handleClickFavorite(event) {
@@ -90,6 +82,8 @@ function handleClickFavorite(event) {
   console.log(arrId);
   //Guardo en LS el array de los id. Con stringify convierto el array en una cadena
   localStorage.setItem('favorites', JSON.stringify(arrId));
+
+ 
 
 
 
