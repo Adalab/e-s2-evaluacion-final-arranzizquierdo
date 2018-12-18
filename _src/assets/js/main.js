@@ -27,17 +27,22 @@ function handlePrintResult() {
       let nameFilm;
       let itemFilm;
 
+      //Convierto la cadena en un array
       const dataLS = JSON.parse(localStorage.getItem('favorites'));
+      console.log('dataLS', dataLS);
 
       for (let i = 0; i < data.length; i++) {
         itemFilm = document.createElement('li');
         itemFilm.classList.add('item__list');
         itemFilm.setAttribute('id', data[i].show.id);
-        for (let i=0 ; i<dataLS.length; i++){
-          if (data[i].show.id === dataLS[i]){
-            itemFilm.classList.add('favorite');
+        if (dataLS){
+          for (let i=0 ; i<dataLS.length; i++){
+            if (data[i].show.id === dataLS[i]){
+              itemFilm.classList.add('favorite');
+            }
           }
         }
+        
 
         imgFilm = document.createElement('img');
         if (data[i].show.image === null) {
@@ -62,10 +67,6 @@ function handlePrintResult() {
   // favoriteClassLs();
 }
 
-//localStorage
-
-
-
 function handleClickFavorite(event) {
   const click = event.target;
   const parentElement = click.parentElement;
@@ -76,18 +77,34 @@ function handleClickFavorite(event) {
     click.classList.toggle('favorite');
   }
 
-  //LocalStorage
-  let favoritesArr = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
-  localStorage.setItem('favorites', JSON.stringify(favoritesArr));
-  const idFilm = parentElement.id;
-
-  if (parentElement.classList.contains('favorite')) {
-    favoritesArr.push(idFilm);
-    localStorage.setItem('favorites', JSON.stringify(favoritesArr));
-  } else {
-    localStorage.removeItem(idFilm);
-    localStorage.setItem('favorites', JSON.stringify(favoritesArr));
+  //Creo un array con todos los li con clase favorite
+  const arrFavorites = document.querySelectorAll('.favorite');
+  console.log('array', arrFavorites);
+  //Creo un array vacío en el que voy a guardar los id de los li del anterior array, recorriendo el array
+  let arrId = [];
+  for (let i=0 ; i<arrFavorites.length ; i++){
+    const idFav = parseInt(arrFavorites[i].id);
+    console.log('idFav', idFav);
+    arrId[i]= idFav;
   }
+  console.log(arrId);
+  //Guardo en LS el array de los id. Con stringify convierto el array en una cadena
+  localStorage.setItem('favorites', JSON.stringify(arrId));
+
+
+
+  //LocalStorage
+  // let favoritesArr = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+  // localStorage.setItem('favorites', JSON.stringify(favoritesArr));
+  // const idFilm = parentElement.id;
+
+  // if (parentElement.classList.contains('favorite')) {
+  //   favoritesArr.push(idFilm);
+  //   localStorage.setItem('favorites', JSON.stringify(favoritesArr));
+  // } else {
+  //   localStorage.removeItem(idFilm);
+  //   localStorage.setItem('favorites', JSON.stringify(favoritesArr));
+  // }
 
   // const idFilm = parentElement.id;
 
