@@ -1,6 +1,6 @@
 #Buscador de películas
 
-Con esta página podrá buscar cualquier película o serie y obtener como resultado su cartel y su titulo. 
+Con esta página podrás buscar cualquier película o serie y obtener como resultado su cartel y su titulo. 
 Si realizas una búsqueda más amplia se listará en pantalla todas las películas y series que en su título contengan la palabra buscada.
 
 Además podrás marcar como favoritas las que más te gusten clicando en ellas. Esto se guradará en tu localStorage para tus próximas visitas.

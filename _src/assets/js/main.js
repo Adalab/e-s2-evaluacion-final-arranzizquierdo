@@ -6,17 +6,38 @@ const listResultEl = document.querySelector('.list__result');
 
 
 function handlePrintResult() {
+
+  //Texto mientras carga la página
+  listResultEl.innerHTML = 'Cargando resultados...';
+
   fetch(`http://api.tvmaze.com/search/shows?q=${inputEl.value}`)
     .then(response => response.json())
     .then(data => {
+
+    //Vacio la ul para pintar los resultados
+      listResultEl.innerHTML = '';
+
+      //Si no hay resultados:
+      if (data.length === 0){
+        listResultEl.innerHTML = 'Resultado no encontrado. Intentalo de nuevo';
+      }
+
+      //Si hay resultados:
       let imgFilm;
       let nameFilm;
       let itemFilm;
+
+      const dataLS = JSON.parse(localStorage.getItem('favorites'));
 
       for (let i = 0; i < data.length; i++) {
         itemFilm = document.createElement('li');
         itemFilm.classList.add('item__list');
         itemFilm.setAttribute('id', data[i].show.id);
+        for (let i=0 ; i<dataLS.length; i++){
+          if (data[i].show.id === dataLS[i]){
+            itemFilm.classList.add('favorite');
+          }
+        }
 
         imgFilm = document.createElement('img');
         if (data[i].show.image === null) {
@@ -37,8 +58,13 @@ function handlePrintResult() {
         listResultEl.appendChild(itemFilm);
       }
     });
-  favoriteClassLs();
+    
+  // favoriteClassLs();
 }
+
+//localStorage
+
+
 
 function handleClickFavorite(event) {
   const click = event.target;
@@ -49,28 +75,42 @@ function handleClickFavorite(event) {
   } else if (click.classList.contains('item__list')) {
     click.classList.toggle('favorite');
   }
+
+  //LocalStorage
+  let favoritesArr = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+  localStorage.setItem('favorites', JSON.stringify(favoritesArr));
   const idFilm = parentElement.id;
 
   if (parentElement.classList.contains('favorite')) {
-    localStorage.setItem(`${idFilm}`, JSON.stringify(idFilm));
-    // const favoriteLS = JSON.parse(localStorage.getItem(`${idFilm}`));
-    // console.log(favoriteLS);
+    favoritesArr.push(idFilm);
+    localStorage.setItem('favorites', JSON.stringify(favoritesArr));
   } else {
-    localStorage.removeItem(`${idFilm}`);
+    localStorage.removeItem(idFilm);
+    localStorage.setItem('favorites', JSON.stringify(favoritesArr));
   }
+
+  // const idFilm = parentElement.id;
+
+  // if (parentElement.classList.contains('favorite')) {
+  //   localStorage.setItem(`${idFilm}`, JSON.stringify(idFilm));
+  //   // const favoriteLS = JSON.parse(localStorage.getItem(`${idFilm}`));
+  //   // console.log(favoriteLS);
+  // } else {
+  //   localStorage.removeItem(`${idFilm}`);
+  // }
 }
 
-function favoriteClassLs () {
-  const arrList = document.querySelectorAll('li');
-  console.log('arrayl list', arrList);
-  for (let i=0; i<arrList.length ; i++){
-    const idLi = arrList[i].id;
-    console.log(localStorage.idLi);
-    if (localStorage.idLi){
-      arrList[i].classList.add('favorite');
-    }
-  }
-}
+// function favoriteClassLs () {
+//   const arrList = document.querySelectorAll('li');
+//   console.log('arrayl list', arrList);
+//   for (let i=0; i<arrList.length ; i++){
+//     const idLi = arrList[i].id;
+//     console.log(localStorage.idLi);
+//     if (localStorage.idLi){
+//       arrList[i].classList.add('favorite');
+//     }
+//   }
+// }
 
 
 listResultEl.addEventListener('click', handleClickFavorite);
