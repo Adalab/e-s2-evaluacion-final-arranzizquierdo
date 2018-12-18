@@ -10,22 +10,32 @@ function handlePrintResult() {
   //Texto mientras carga la página
   listResultEl.innerHTML = 'Cargando resultados...';
 
-  //Convierto la cadena LS en un array
-  let dataLS = JSON.parse(localStorage.getItem('favorites'))? JSON.parse(localStorage.getItem('favorites')) : [];
-
   fetch(`http://api.tvmaze.com/search/shows?q=${inputEl.value}`)
     .then(response => response.json())
     .then(data => {
 
-    //Vacio la ul para pintar los resultados
+      //Vacio la ul para pintar los resultados
       listResultEl.innerHTML = '';
 
       //Si no hay resultados:
-      if (data.length === 0){
+      if (data.length === 0) {
         listResultEl.innerHTML = 'Resultado no encontrado. Intentalo de nuevo';
       }
 
       //Si hay resultados:
+
+      // BUENO//Convierto la cadena LS en un array
+      // let dataLS = JSON.parse(localStorage.getItem('favorites')); BUENO
+
+      //Creo un array con las key de ls
+      let arrLs =[];
+      for (let i=0; i<localStorage.length; i++){
+        console.log(localStorage);
+        let idFav = localStorage;
+        arrLs += idFav;
+      }
+      console.log('arrLS',arrLs);
+
       let imgFilm;
       let nameFilm;
       let itemFilm;
@@ -34,9 +44,9 @@ function handlePrintResult() {
         itemFilm = document.createElement('li');
         itemFilm.classList.add('item__list');
         itemFilm.setAttribute('id', data[i].show.id);
-        if ( dataLS.includes (data[i].show.id)){
-          itemFilm.classList.add('favorite');
-        }
+        // BUENOif (dataLS.includes(data[i].show.id)) {
+        //   itemFilm.classList.add('favorite');
+        // }BUENO
 
         imgFilm = document.createElement('img');
         if (data[i].show.image === null) {
@@ -62,6 +72,7 @@ function handlePrintResult() {
 function handleClickFavorite(event) {
   const click = event.target;
   const parentElement = click.parentElement;
+  const idFilm = parentElement.id;
 
   if (parentElement.classList.contains('item__list')) {
     parentElement.classList.toggle('favorite');
@@ -69,21 +80,27 @@ function handleClickFavorite(event) {
     click.classList.toggle('favorite');
   }
 
-  //Creo un array con todos los li con clase favorite
-  const arrFavorites = document.querySelectorAll('.favorite');
-  console.log('array', arrFavorites);
-  //Creo un array vacío en el que voy a guardar los id de los li del anterior array, recorriendo el array
-  let arrId = [];
-  for (let i=0 ; i<arrFavorites.length ; i++){
-    const idFav = parseInt(arrFavorites[i].id);
-    console.log('idFav', idFav);
-    arrId[i]= idFav;
+  //Añadir al ls si está marcada como favorita
+  if (parentElement.classList.contains('favorite')) {
+    localStorage.setItem(`${idFilm}`, JSON.stringify(idFilm));
+  } else {
+    localStorage.removeItem(`${idFilm}`);
   }
-  console.log(arrId);
-  //Guardo en LS el array de los id. Con stringify convierto el array en una cadena
-  localStorage.setItem('favorites', JSON.stringify(arrId));
 
- 
+  // //BUENO!Creo un array con todos los li con clase favorite
+  // const arrFavorites = document.querySelectorAll('.favorite');
+  // console.log('array', arrFavorites);
+  // //Creo un array vacío en el que voy a guardar los id de los li del anterior array, recorriendo el array
+  // let arrId = [];
+  // for (let i = 0; i < arrFavorites.length; i++) {
+  //   const idFav = parseInt(arrFavorites[i].id);
+  //   arrId[i] = idFav;
+  // }
+  // console.log(arrId);
+  // //Guardo en LS el array de los id. Con stringify convierto el array en una cadena
+  // localStorage.setItem('favorites', JSON.stringify(arrId)); BUENO!!
+
+
 
 
 
@@ -91,6 +108,7 @@ function handleClickFavorite(event) {
   // let favoritesArr = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
   // localStorage.setItem('favorites', JSON.stringify(favoritesArr));
   // const idFilm = parentElement.id;
+
 
   // if (parentElement.classList.contains('favorite')) {
   //   favoritesArr.push(idFilm);
@@ -126,3 +144,38 @@ function handleClickFavorite(event) {
 
 listResultEl.addEventListener('click', handleClickFavorite);
 buttonEl.addEventListener('click', handlePrintResult);
+
+
+
+// let favourite = [];
+// function addToFavourite(event) {
+//   let selected = event.currentTarget;
+//   selected.classList.toggle('favourite');
+//   let id = selected.getAttribute('data-id');
+
+//   if (selected.classList.contains('favourite')) {
+//     addToLocalStorage(id, selected.innerHTML);
+//     favourite.push(id);
+//   }
+//   else {
+//     removeFromLocalStorage(id);
+//   }
+
+// }
+
+
+// let favourite = [];
+// function addToFavourite(event) {
+//   let selected = event.currentTarget;
+//   selected.classList.toggle('favourite');
+//   let id = selected.getAttribute('data-id');
+
+//   if (selected.classList.contains('favourite')) {
+//     addToLocalStorage(id, selected.innerHTML);
+//     favourite.push(id);
+//   }
+//   else {
+//     removeFromLocalStorage(id);
+//   }
+
+// }

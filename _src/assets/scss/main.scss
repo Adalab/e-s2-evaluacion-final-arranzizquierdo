@@ -1,10 +1,17 @@
 *{
 	box-sizing: border-box;
 	margin: 0;
+	font-family: 'Orbitron', sans-serif;
 }
 
 .title__header {
 	text-align: center;
+	margin: 50px;
+	border-bottom: 4px double gray;
+}
+
+.fa-search {
+	padding: 10px;
 }
 
 .nav__container {
@@ -16,12 +23,16 @@
 	border-bottom: 1px solid black;
 	box-shadow: 0;
 	margin: auto;
+	font-size: 18px;
+	padding: 8px; 
 }
 
 .button__search {
 	background-color: rgb(128, 0, 85);
 	color: white;
 	border: 0;
+	font-size: 18px;
+	padding: 8px;
 }
 
 .list__result{
@@ -39,9 +50,16 @@
 	text-align: center;
 	padding: 25px;
 	color: rgb(165, 63, 148);
+	border-radius: 10px;
+}
+
+.name__film{
+	padding: 10px;
+	font-size: 18px;
 }
 
 .favorite {
-	border: 3px double blueviolet;
-	background-color: rgb(183, 238, 220);
+	border: 3px double purple;
+	background-color: rgb(205, 247, 233);
+	box-shadow: 2px 2px darkslategray;
 }
