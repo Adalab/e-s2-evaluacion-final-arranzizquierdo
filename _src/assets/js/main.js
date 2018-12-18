@@ -24,30 +24,33 @@ function handlePrintResult() {
 
       //Si hay resultados:
 
-      // BUENO//Convierto la cadena LS en un array
-      // let dataLS = JSON.parse(localStorage.getItem('favorites')); BUENO
-
-      //Creo un array con las key de ls
-      let arrLs =[];
-      for (let i=0; i<localStorage.length; i++){
-        console.log(localStorage);
-        let idFav = localStorage;
-        arrLs += idFav;
+      //Creo un array con las key de LS y lo recorro para obtener los ids de las peliculas
+      let arrLs = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        let idFav = localStorage.key(i);
+        arrLs.push(idFav);
       }
-      console.log('arrLS',arrLs);
 
+      //Pinto el resultado 
       let imgFilm;
       let nameFilm;
       let itemFilm;
 
       for (let i = 0; i < data.length; i++) {
+        //Creo los li
         itemFilm = document.createElement('li');
         itemFilm.classList.add('item__list');
-        itemFilm.setAttribute('id', data[i].show.id);
-        // BUENOif (dataLS.includes(data[i].show.id)) {
-        //   itemFilm.classList.add('favorite');
-        // }BUENO
 
+        const idFilm = data[i].show.id;
+        const idFilmNum = idFilm.toString();
+
+        itemFilm.setAttribute('id', idFilm);
+
+        if (arrLs.includes(idFilmNum)) {
+          itemFilm.classList.add('favorite');
+        }
+
+        //Creo las imágenes
         imgFilm = document.createElement('img');
         if (data[i].show.image === null) {
           imgFilm.src = 'https://via.placeholder.com/210x295/cccccc/666666/?text=TV';
@@ -56,19 +59,23 @@ function handlePrintResult() {
           imgFilm.src = srcImage;
         }
 
+        //Creo los títulos
         nameFilm = document.createElement('h2');
         nameFilm.classList.add('name__film');
         const textName = document.createTextNode(data[i].show.name);
         nameFilm.appendChild(textName);
 
+        //Añado a los li las imágenes y los títulos
         itemFilm.appendChild(imgFilm);
         itemFilm.appendChild(nameFilm);
 
+        //Añado los li a la lista
         listResultEl.appendChild(itemFilm);
       }
     });
 }
 
+//Marcar como favorita cuando se hace click
 function handleClickFavorite(event) {
   const click = event.target;
   const parentElement = click.parentElement;
@@ -80,102 +87,13 @@ function handleClickFavorite(event) {
     click.classList.toggle('favorite');
   }
 
-  //Añadir al ls si está marcada como favorita
+  //Añadir al LS si está marcada como favorita
   if (parentElement.classList.contains('favorite')) {
     localStorage.setItem(`${idFilm}`, JSON.stringify(idFilm));
   } else {
     localStorage.removeItem(`${idFilm}`);
   }
-
-  // //BUENO!Creo un array con todos los li con clase favorite
-  // const arrFavorites = document.querySelectorAll('.favorite');
-  // console.log('array', arrFavorites);
-  // //Creo un array vacío en el que voy a guardar los id de los li del anterior array, recorriendo el array
-  // let arrId = [];
-  // for (let i = 0; i < arrFavorites.length; i++) {
-  //   const idFav = parseInt(arrFavorites[i].id);
-  //   arrId[i] = idFav;
-  // }
-  // console.log(arrId);
-  // //Guardo en LS el array de los id. Con stringify convierto el array en una cadena
-  // localStorage.setItem('favorites', JSON.stringify(arrId)); BUENO!!
-
-
-
-
-
-  //LocalStorage
-  // let favoritesArr = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
-  // localStorage.setItem('favorites', JSON.stringify(favoritesArr));
-  // const idFilm = parentElement.id;
-
-
-  // if (parentElement.classList.contains('favorite')) {
-  //   favoritesArr.push(idFilm);
-  //   localStorage.setItem('favorites', JSON.stringify(favoritesArr));
-  // } else {
-  //   localStorage.removeItem(idFilm);
-  //   localStorage.setItem('favorites', JSON.stringify(favoritesArr));
-  // }
-
-  // const idFilm = parentElement.id;
-
-  // if (parentElement.classList.contains('favorite')) {
-  //   localStorage.setItem(`${idFilm}`, JSON.stringify(idFilm));
-  //   // const favoriteLS = JSON.parse(localStorage.getItem(`${idFilm}`));
-  //   // console.log(favoriteLS);
-  // } else {
-  //   localStorage.removeItem(`${idFilm}`);
-  // }
 }
-
-// function favoriteClassLs () {
-//   const arrList = document.querySelectorAll('li');
-//   console.log('arrayl list', arrList);
-//   for (let i=0; i<arrList.length ; i++){
-//     const idLi = arrList[i].id;
-//     console.log(localStorage.idLi);
-//     if (localStorage.idLi){
-//       arrList[i].classList.add('favorite');
-//     }
-//   }
-// }
-
 
 listResultEl.addEventListener('click', handleClickFavorite);
 buttonEl.addEventListener('click', handlePrintResult);
-
-
-
-// let favourite = [];
-// function addToFavourite(event) {
-//   let selected = event.currentTarget;
-//   selected.classList.toggle('favourite');
-//   let id = selected.getAttribute('data-id');
-
-//   if (selected.classList.contains('favourite')) {
-//     addToLocalStorage(id, selected.innerHTML);
-//     favourite.push(id);
-//   }
-//   else {
-//     removeFromLocalStorage(id);
-//   }
-
-// }
-
-
-// let favourite = [];
-// function addToFavourite(event) {
-//   let selected = event.currentTarget;
-//   selected.classList.toggle('favourite');
-//   let id = selected.getAttribute('data-id');
-
-//   if (selected.classList.contains('favourite')) {
-//     addToLocalStorage(id, selected.innerHTML);
-//     favourite.push(id);
-//   }
-//   else {
-//     removeFromLocalStorage(id);
-//   }
-
-// }
